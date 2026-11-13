@@ -1,5 +1,9 @@
 # digest-telegram
 
+<p align="center">
+  <img src="docs/readme/hero.png" alt="Banner ilustrativo do digest-telegram (mockup com dados fictícios)" width="100%">
+</p>
+
 **Plano de consolidação de 21 agentes de digest e radar no motor `digest-kit`.**
 
 Documento de planejamento, sem código ou bot. O épico inventaria 21 repositórios de coleta (RSS, scraping e APIs) com entrega no Telegram e define como cada um vira um tópico (`topics/*.ts`) ou provider (`providers/*.ts`) do [`juninmd/digest-kit`](https://github.com/juninmd/digest-kit).
@@ -65,6 +69,24 @@ Os agentes, na maioria, repetem Bun ou Node, TypeScript, SQLite, LiteLLM ou Gemi
 ## Status
 
 O inventário está concluído neste documento. Nenhuma migração foi marcada como concluída, e os quatro sprints — Tier 1 em `topics/`, scrapers regionais, releases/entretenimento e exclusão dos repositórios antigos — seguem pendentes.
+
+## Imagens
+
+> [!NOTE]
+> **Mockups ilustrativos.** As telas abaixo foram geradas em HTML com dados fictícios (Playwright) e não são capturas de uma instalação real.
+
+<p align="center">
+  <img src="docs/readme/architecture.png" alt="Um motor, vários agentes — mockup ilustrativo com dados fictícios" width="100%">
+  <br>
+  <sub>Um motor, vários agentes — dados fictícios.</sub>
+</p>
+
+<p align="center">
+  <img src="docs/readme/digest.png" alt="Entrega no Telegram — mockup ilustrativo com dados fictícios" width="100%">
+  <br>
+  <sub>Entrega no Telegram — dados fictícios.</sub>
+</p>
+
 
 ## Limitações
 
