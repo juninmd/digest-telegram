@@ -70,6 +70,44 @@ Os agentes, na maioria, repetem Bun ou Node, TypeScript, SQLite, LiteLLM ou Gemi
 
 O inventário está concluído neste documento. Nenhuma migração foi marcada como concluída, e os quatro sprints — Tier 1 em `topics/`, scrapers regionais, releases/entretenimento e exclusão dos repositórios antigos — seguem pendentes.
 
+## Como um agente do Tier 1 vira tópico
+
+O `digest-kit` já traz o ciclo completo (ver o exemplo [`examples/meu-agente`](https://github.com/juninmd/digest-kit/tree/main/examples/meu-agente)); o agente migrado mantém só o arquivo de tópico:
+
+```ts
+// topics/ciencia-hoje.ts
+import { defineTopic } from "@juninmd/digest-kit";
+
+export const topic = defineTopic({
+  name: "ciencia-hoje",
+  title: "Ciência Hoje",
+  emoji: "🔬",
+  subject: "ciência, IA e biotecnologia",
+  systemPrompt: "…prompt do agente atual…",
+  feeds: [{ name: "Fonte", url: "https://exemplo.com/feed.xml" }],
+});
+```
+
+```ts
+// index.ts
+import { runAgent } from "@juninmd/digest-kit";
+import { topic } from "./topics/ciencia-hoje.ts";
+
+await runAgent(topic);
+```
+
+`defineTopic` recusa um tópico sem feeds. O agente ganha a CLI padrão do kit: `--ingest`, `--digest`, `--loop`, `--status` e `--dry-run`. Banco, cron, LiteLLM e Telegram vêm de variáveis de ambiente (`DB_PATH`, `CRON_INGESTION`, `CRON_DIGEST`, `AI_*`, `TELEGRAM_*`), então cada tópico roda como um processo com o próprio `DB_PATH`.
+
+### Proposta de critério de homologação (Tier 1)
+
+Hoje o critério não está definido; sugestão para decidir em conjunto, usando só o que a CLI do kit já oferece:
+
+1. `bun run src/index.ts --ingest` coleta itens de todos os feeds migrados (feed fora do ar é registrado e não derruba o ciclo).
+2. `--status` mostra itens pendentes e a última coleta.
+3. `--digest --dry-run` imprime o digest no formato esperado, sem enviar e sem marcar itens como enviados.
+4. Um envio real para um chat de teste (`TELEGRAM_CHAT_IDS`) chega completo.
+5. Só depois disso o repositório antigo entra no plano de exclusão.
+
 ## Imagens
 
 > [!NOTE]
